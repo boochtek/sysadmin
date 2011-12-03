@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# NOTE: These may vary between distros.
+SITE_CONFIG_DIR=/etc/apache2/sites-available
+WEB_DIR=/var/www
+LOG_DIR=/var/log/apache2
+
+SITE=$1
+PROGRAM=$(basename $0)
+CONFIG_FILE="$SITE_CONFIG_DIR/$SITE"
+
+# Usage info
+if [ $# -ne 1 ] || [ $1 == "--help" ] ; then
+  cat <<USAGE
+$PROGRAM by Craig Buchek (BoochTek, LLC)
+
+Create directories and a basic config file for an Apache 2 web site.
+
+Usage: $PROGRAM SITENAME
+Example: sudo $PROGRAM boochtek.com
+USAGE
+  exit 0;
+fi
+
+# Create required directories.
+mkdir -p $WEB_DIR/$SITE/public
+mkdir -p $LOG_DIR/$SITE
+
+# Add a basic config file for the site, unless it already exists.
+[ -e $CONFIG_FILE ] || cat > $CONFIG_FILE <<CONFIG
+<VirtualHost *:80>
+  ServerName $SITE
+  UseCanonicalName On
+
+  CustomLog $LOG_DIR/$SITE/access.log combined
+  ErrorLog $LOG_DIR/$SITE/error.log
+
+  DocumentRoot $WEB_DIR/$SITE/public
+  <Directory $WEB_DIR/$SITE/public>
+    AllowOverride All
+    Options FollowSymLinks
+    Order allow,deny
+    Allow from all
+  </Directory>
+  Alias /uploads $WEB_DIR/$SITE/uploads
+</VirtualHost>
+CONFIG
