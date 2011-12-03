@@ -5,20 +5,21 @@ These are some scripts that we have written to make GNU/Linux (and UNIX) system
 administration easier. They're quite varied in their utility and quality.
 
 
-Usage
-=====
+Installation
+============
 
 To use these, it's best to just copy each file that you need directly from
 Github. We recommend that you clone the repo on Github first, so you can make
 any customized changes. Having your own repo also ensures that you get what
 you're expecting, in case we make changes in our repo.
 
-Most of the scripts will work best when installed in ''/usr/local/sbin'',
-''/usr/local/bin'', or ''~/bin''. To copy them, use ''wget'' or something
+Most of the scripts will work best when installed in ``/usr/local/sbin``,
+``/usr/local/bin``, or ``~/bin``. To copy them, use ``wget`` or something
 similar. For example:
 
     cd ~/bin
-    wget https://raw.github.com/boochtek/sysadmin/master/scripts/a2addsite
+    wget https://raw.github.com/boochtek/sysadmin/master/sbin/a2addsite
+    chmod +x a2addsite
 
 
 License
