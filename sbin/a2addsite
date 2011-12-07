@@ -42,6 +42,5 @@ mkdir -p $LOG_DIR/$SITE
     Order allow,deny
     Allow from all
   </Directory>
-  Alias /uploads $WEB_DIR/$SITE/uploads
 </VirtualHost>
 CONFIG
