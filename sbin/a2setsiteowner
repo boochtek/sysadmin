@@ -1,0 +1,37 @@
+#!/bin/bash
+# a2setsiteowner
+
+# NOTE: These may vary between distros.
+SITE_CONFIG_DIR=/etc/apache2/sites-available
+WEB_DIR=/var/www
+LOG_DIR=/var/log/apache2
+
+SITE=$1
+OWNER=$2
+PROGRAM=$(basename $0)
+CONFIG_FILE="$SITE_CONFIG_DIR/$SITE"
+
+# Usage info
+if [ $# -ne 2 ] || [ $1 == "--help" ] || [ $2 == "--help" ] ; then
+  cat <<USAGE
+$PROGRAM by Craig Buchek (BoochTek, LLC)
+
+Set owner of a web site directory, config file, and log files for an Apache 2 web site.
+
+Usage: $PROGRAM SITENAME USERNAME[:GROUPNAME]
+Example: sudo $PROGRAM boochtek.com booch:www-data
+USAGE
+  exit 0;
+fi
+
+# Make sure the directories exist.
+mkdir -p $WEB_DIR/$SITE/public
+mkdir -p $LOG_DIR/$SITE
+
+# Change ownership, as requested.
+chown -R $OWNER $CONFIG_FILE
+chown -R $OWNER $WEB_DIR/$SITE
+chown -R $OWNER $LOG_DIR/$SITE
+
+# Change permissions, as appropriate.
+chmod -R g+ws,a+X $WEB_DIR/$SITE
