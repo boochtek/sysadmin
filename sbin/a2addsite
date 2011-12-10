@@ -1,24 +1,22 @@
 #!/bin/bash
 
 # NOTE: These may vary between distros.
-SITE_CONFIG_DIR=/etc/apache2/sites-available
-WEB_DIR=/var/www
-LOG_DIR=/var/log/apache2
+SITE_CONFIG_DIR='/etc/apache2/sites-available'
+WEB_DIR='/var/www'
+LOG_DIR='/var/log/apache2'
 
-SITE=$1
 PROGRAM=$(basename $0)
+ARGV=($@)
+ARGC=$#
+SITE="$1"
 CONFIG_FILE="$SITE_CONFIG_DIR/$SITE"
 
-# Usage info
-if [ $# -ne 1 ] || [ $1 == "--help" ] ; then
-  cat <<USAGE
-$PROGRAM by Craig Buchek (BoochTek, LLC)
-
-Create directories and a basic config file for an Apache 2 web site.
-
-Usage: $PROGRAM SITENAME
-Example: sudo $PROGRAM boochtek.com
-USAGE
+# Usage info.
+if [ $ARGC -ne 1 ] || [ "${ARGV[1]}" == '--help' ] ; then
+  echo -e "$PROGRAM by Craig Buchek (BoochTek, LLC)\n"
+  echo -e "Create directories and a basic config file for an Apache 2 web site.\n"
+  echo -e "Usage: $PROGRAM SITENAME"
+  echo -e "Example: sudo $PROGRAM boochtek.com"
   exit 0;
 fi
 

@@ -6,13 +6,14 @@ WEB_DIR='/var/www'
 LOG_DIR='/var/log/apache2'
 
 PROGRAM=$(basename $0)
-ARGS=($@)
+ARGV=($@)
+ARGC=$#
 SITE="$1"
 shift; ALIASES="$*"
 CONFIG_FILE="$SITE_CONFIG_DIR/$SITE"
 
 # Usage info.
-if [ "${#ARGS[@]}" -lt 2 ] || [ "${ARGS[1]}" == "--help" ] ; then
+if [ $ARGC -lt 2 ] || [ "${ARGV[1]}" == '--help' ] ; then
   echo -e "$PROGRAM by Craig Buchek (BoochTek, LLC)\n"
   echo -e "Add domain name aliases to the config file for an Apache 2 web site.\n"
   echo -e "Usage: $PROGRAM SITENAME SITEALIAS..."
