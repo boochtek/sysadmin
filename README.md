@@ -22,6 +22,14 @@ similar. For example:
     chmod +x a2addsite
 
 
+Usage
+=====
+
+  * ``sbin/a2addsite`` - Create directories and a basic config file for an Apache 2 web site.
+  * ``sbin/a2addsitealias`` - Add domain name aliases to the config file for an Apache 2 web site.
+  * ``sbin/a2setsiteowner`` - Set owner of a web site directory, config file, and log files for an Apache 2 web site.
+
+
 License
 =======
 
