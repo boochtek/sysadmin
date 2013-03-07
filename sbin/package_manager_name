@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Prints out the name of the package management program used on this computer.
+# WARNING: Assumes that only 1 package manager is on the computer; only supports apt-get, yum, and brew.
+
+
+if [ "$PACKAGE_MANAGER" != "" ]; then
+  :
+elif command_exists apt-get; then
+  export PACKAGE_MANAGER='apt-get'
+elif command_exists yum; then
+  export PACKAGE_MANAGER='yum'
+elif command_exists brew; then
+  export PACKAGE_MANAGER='brew'
+else
+  echo 'Could not find a package manager.'
+  exit 1;
+fi
+
+echo "$PACKAGE_MANAGER"
+exit 0
