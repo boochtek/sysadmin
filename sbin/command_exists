@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Determine whether a command exists on the system and in the $PATH (or an alias, function, or builtin).
+# Returns 0 (true) if the command exists, otherwise 1 (false).
+
+
+type -P "$1" > /dev/null 2>&1;
+exit $?
