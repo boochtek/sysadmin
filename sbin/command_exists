@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Determine whether a command exists on the system and in the $PATH (or an alias, function, or builtin).
+# Determine whether a command exists on the system and in the $PATH (or a builtin).
 # Returns 0 (true) if the command exists, otherwise 1 (false).
+# NOTE: Because this script starts a new shell, it will not find aliases and functions defined by the caller.
 
 
-type -P "$1" > /dev/null 2>&1;
-exit $?
+type -t "$1" > /dev/null 2>&1
