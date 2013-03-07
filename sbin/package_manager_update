@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Updates the package manager with the latest list of packages.
+
+
+PACKAGE_MANAGER=$(package_maneger_name)
+
+if [ "$PACKAGE_MANAGER" == 'apt-get' ]; then
+  apt-get update -y
+elif [ "$PACKAGE_MANAGER" == 'yum' ]; then
+  yum check-update -y
+elif [ "$PACKAGE_MANAGER" == 'brew' ]; then
+  brew update
+else
+  echo "Unknown package manager: $PACKAGE_MANAGER"
+  exit 1
+fi
