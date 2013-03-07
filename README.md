@@ -33,7 +33,25 @@ Usage
 TODO
 ====
 
-Tool to modify BIND zone files.
+Installation Helpers
+--------------------
+    package_install $package_name [$version]
+    package_remove $package_name
+    package_is_installed $package_name [$version]
+    package_manager_name
+    package_manager_update
+    command_exists $command
+    command_accepts_arguments $command [$args...]
+    generate_password
+    add_line_to_file $file $line [$after_existing_line_by_content_or_line_number]
+    file_contains_line $file $line_content
+    warn_if_not_root
+    fail_if_not_root
+    run_as $user $command [$args...]
+    service $service_name $restart_or_stop_or_status
+
+Tool to modify BIND zone files
+------------------------------
   * Name it ''zone-update'' or ''named-updatezone''.
     * Using ''named-updatezone'' would make it analagous to ''named-checkzone''.
       * Pro: Pretty similar in functionality to ''named-checkzone''.
