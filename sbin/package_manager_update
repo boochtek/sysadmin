@@ -3,7 +3,7 @@
 # Updates the package manager with the latest list of packages.
 
 
-PACKAGE_MANAGER=$(package_maneger_name)
+PACKAGE_MANAGER=$(package_manager_name)
 
 if [ "$PACKAGE_MANAGER" == 'apt-get' ]; then
   apt-get update -y
