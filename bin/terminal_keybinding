@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# This is a tool to set keybindings for Mac OS X Terminal.
+
+
+PROGRAM=$(basename $0)
+ARGV=($@)
+ARGC=$#
+KEY=$1
+BINDING=$2
+
+
+function main()
+  if [ $ARGC -ne 2 ] || [ "${ARGV[1]}" == '--help' ] ; then
+  	show_usage
+  fi
+
+  defaults_write $KEY_XXX $BINDING
+end
+
+
+function show_usage()
+  echo -e "$PROGRAM by Craig Buchek (BoochTek, LLC)\n"
+  echo -e "set keybindings for Mac OS X Terminal.\n"
+  echo -e "Usage: $PROGRAM KEY BINDING"
+  echo -e "Example: $PROGRAM ~^\$F1' 'ls -laG^M'"
+  exit 0;
+end
+
+
+main
