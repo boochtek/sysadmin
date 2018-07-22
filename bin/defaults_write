@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# This is a tool like Mac OS X `default write` that will work with nested objects.
+
+# TODO:
+#   Make it take plists the same way that defaults does. (Require -app for app name.)
+#   Allow other types besides string.
+#   Allow 
+
+
+
+PROGRAM=$(basename $0)
+ARGV=($@)
+ARGC=$#
+PREFS="$HOME/Library/Preferences"
+PLIST_BUDDY='/usr/libexec/PlistBuddy'
+
+
+function main() {
+  if [ $ARGC -ne 3 ] || [ "${ARGV[1]}" == '--help' ] ; then
+  	show_usage
+  fi
+
+  defaults_write $@
+}
+
+
+function show_usage() {
+  echo -e "$PROGRAM by Craig Buchek (BoochTek, LLC)\n"
+  echo -e "Write plist settings, \n"
+  echo -e "Usage: $PROGRAM APP_NAME PATH:TO:KEY VALUE"
+  echo -e "Example: $PROGRAM Terminal 'Window Settings:Basic:keyMapBoundKeys:~^\$F704' 'ls -laG^M'"
+  exit 0;
+}
+
+
+function defaults_write() {
+  APP="$1"
+  KEY="$2"
+  VALUE="$3"
+  PLIST_FILE="$(ls -1 $PREFS/*.$APP.plist)"
+
+  if plist_contains "$PLIST_FILE" "$KEY" ; then
+    plist_set "$PLIST_FILE" "$KEY" "$VALUE"
+  else
+    plist_add "$PLIST_FILE" "$KEY" "$VALUE"
+  fi
+}
+
+
+function plist_contains() {
+  PLIST_FILE="$1"
+  KEY="$2"
+  $PLIST_BUDDY "$PLIST_FILE" -c "Print ':$KEY'" >/dev/null 2>&1
+}
+
+function plist_set() {
+  PLIST_FILE="$1"  
+  KEY="$2"
+  VALUE="$3"
+  $PLIST_BUDDY "$PLIST_FILE" -c "Set ':$KEY' '$VALUE'"
+}
+
+function plist_add() {
+  PLIST_FILE="$1"
+  KEY="$2"
+  VALUE="$3"
+  $PLIST_BUDDY "$PLIST_FILE" -c "Add ':$KEY' string '$VALUE'"
+}
+
+
+main
