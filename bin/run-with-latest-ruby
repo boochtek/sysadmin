@@ -1,0 +1,7 @@
+#! /usr/bin/env bash -e
+
+source /usr/local/share/chruby/chruby.sh
+LATEST_RUBY="$(chruby | grep -v '(pre|beta)' | tail -1 | awk '{ print $NF }')"
+chruby $LATEST_RUBY
+"$@"
+
