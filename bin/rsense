@@ -1,3 +1,3 @@
 #! /usr/bin/env bash -e
 
-run-with-latest-ruby rsense "$@"
+/usr/local/bin/run-with-latest-ruby rsense "$@"
